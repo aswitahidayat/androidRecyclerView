@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class ListHeroAdapter(private val listHero: ArrayList<Pokemon>) : RecyclerView.Adapter<ListHeroAdapter.CategoryViewHolder>() {
+    var onItemClickListener: ((Pokemon) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val itemRow = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
         return CategoryViewHolder(itemRow)
@@ -26,6 +28,10 @@ class ListHeroAdapter(private val listHero: ArrayList<Pokemon>) : RecyclerView.A
             .load(listHero[position].photo)
             .apply(RequestOptions().override(55, 55))
             .into(holder.imgPhoto)
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(listHero[holder.adapterPosition])
+        }
     }
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
