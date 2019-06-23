@@ -1,5 +1,6 @@
 package com.primagama.mylist
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -87,7 +88,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showSelectedPresident(hero: Pokemon) {
+    private fun showSelectedPresident1(hero: Pokemon) {
         Toast.makeText(this, "Kamu memilih " + hero.name, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showSelectedPresident(hero: Pokemon){
+        val moveIntent = Intent(this@MainActivity, DetailActivity::class.java)
+        moveIntent.putExtra("EXTRA_NAME", hero.name)
+        moveIntent.putExtra("EXTRA_FORM", hero.from)
+        moveIntent.putExtra("EXTRA_PHOTO", hero.photo)
+        startActivity(moveIntent)
     }
 }
